@@ -1,59 +1,232 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Paymob Payment Gateway Integration - Laravel
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A Laravel-based payment processing system integrated with Paymob payment gateway. This project provides RESTful API endpoints for order creation and payment initiation.
 
-## About Laravel
+## Features
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+-   ✅ Order creation and management
+-   ✅ Paymob payment gateway integration
+-   ✅ Payment iframe generation
+-   ✅ Interface-based architecture (easily extensible to other gateways)
+-   ✅ RESTful API endpoints
+-   ✅ Request validation
+-   ✅ Comprehensive error handling
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Tech Stack
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+-   **Framework**: Laravel 12.x
+-   **Database**: mysql (configurable)
+-   **Payment Gateway**: Paymob
+-   **PHP Version**: 8.2+
 
-## Learning Laravel
+## Installation
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+### 1. Clone the Repository
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```bash
+git clone <repository-url>
+cd abudiyab-backend-task
+```
 
-## Laravel Sponsors
+### 2. Install Dependencies
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+```bash
+composer install
+```
 
-### Premium Partners
+### 3. Environment Configuration
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+Copy `.env.example` to `.env`:
 
-## Contributing
+```bash
+copy .env.example .env
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Update the following Paymob credentials in `.env`:
 
-## Code of Conduct
+```env
+PAYMOB_API_KEY=your_paymob_api_key
+PAYMOB_INTEGRATION_ID=your_integration_id
+PAYMOB_IFRAME_ID=your_iframe_id
+PAYMOB_HMAC_SECRET=your_hmac_secret
+PAYMOB_CURRENCY=EGP
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 4. Generate Application Key
 
-## Security Vulnerabilities
+```bash
+php artisan key:generate
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### 5. Run Migrations
+
+```bash
+php artisan migrate
+```
+
+### 6. Start Development Server
+
+```bash
+php artisan serve
+```
+
+The API will be available at `http://localhost:8000`
+
+## API Endpoints
+
+### 1. Create Order
+
+**Endpoint**: `POST /api/orders`
+
+**Request Body**:
+
+```json
+{
+    "amount": 100.5,
+    "currency": "EGP",
+    "customer_email": "customer@example.com"
+}
+```
+
+**Response** (201 Created):
+
+```json
+{
+    "success": true,
+    "message": "Order created successfully",
+    "data": {
+        "order_id": 1,
+        "amount": "100.50",
+        "currency": "EGP",
+        "customer_email": "customer@example.com",
+        "status": "pending",
+        "created_at": "2025-12-10T15:00:00.000000Z"
+    }
+}
+```
+
+### 2. Initiate Payment
+
+**Endpoint**: `POST /api/payments/initiate`
+
+**Request Body**:
+
+```json
+{
+    "order_id": 1,
+    "first_name": "John",
+    "last_name": "Doe",
+    "phone_number": "01234567890"
+}
+```
+
+**Response** (200 OK):
+
+```json
+{
+    "success": true,
+    "message": "Payment initiated successfully",
+    "data": {
+        "payment_id": 1,
+        "order_id": 1,
+        "payment_url": "https://accept.paymob.com/api/acceptance/iframes/843722?payment_token=...",
+        "amount": "100.50",
+        "currency": "EGP",
+        "status": "pending"
+    }
+}
+```
+
+## Testing with Postman
+
+1. Import the Postman collection: `Paymob_Payment_API.postman_collection.json`
+2. Update the `base_url` variable if needed (default: `http://localhost:8000`)
+3. Test the endpoints:
+    - Create an order first
+    - Use the returned `order_id` to initiate payment
+    - Open the `payment_url` in a browser to complete the payment
+
+## Architecture
+
+This project uses an **interface-based architecture** for payment gateway integration:
+
+```
+PaymentGatewayInterface (Contract)
+        ↓
+PaymobPaymentService (Implementation)
+        ↓
+PaymentService (Orchestration)
+        ↓
+PaymentController (API Layer)
+```
+
+### Benefits:
+
+-   Easy to add new payment gateways (Stripe, PayPal, etc.)
+-   Follows SOLID principles
+-   Clean separation of concerns
+-   Testable and maintainable
+
+## Database Schema
+
+### Orders Table
+
+-   `id`: Primary key
+-   `amount`: Decimal (10,2)
+-   `currency`: String (EGP, USD, EUR)
+-   `customer_email`: String
+-   `status`: Enum (pending, completed, failed, cancelled)
+-   `timestamps`
+
+### Payments Table
+
+-   `id`: Primary key
+-   `order_id`: Foreign key → orders
+-   `payment_gateway`: String
+-   `transaction_id`: String (nullable, unique)
+-   `amount`: Decimal (10,2)
+-   `status`: Enum (pending, completed, failed, refunded)
+-   `metadata`: JSON
+-   `timestamps`
+
+## Paymob Setup
+
+### Getting Your Credentials
+
+1. Sign up at [Paymob Accept](https://accept.paymob.com/)
+2. Navigate to **Settings → Account Info → API Keys** to get your API Key
+3. Navigate to **Settings → Payment Integrations** to get Integration ID and Iframe ID
+4. Get HMAC Secret from **Settings → Account Info**
+
+### Callback URLs
+
+For production, update the callback URLs in Paymob Dashboard:
+
+-   **Transaction Processed Callback**: `https://yourdomain.com/api/payments/callback`
+-   **Transaction Response Callback**: `https://yourdomain.com/api/payments/response`
+
+## Project Structure
+
+```
+app/
+├── Contracts/
+│   └── PaymentGatewayInterface.php    # Payment gateway contract
+├── Http/
+│   ├── Controllers/Api/
+│   │   ├── OrderController.php        # Order creation endpoint
+│   │   └── PaymentController.php      # Payment initiation endpoint
+│   └── Requests/Api/
+│       ├── CreateOrderRequest.php     # Order validation
+│       └── InitiatePaymentRequest.php # Payment validation
+├── Models/
+│   ├── Order.php                      # Order model
+│   └── Payment.php                    # Payment model
+└── Services/Api/
+    ├── OrderService.php               # Order business logic
+    ├── PaymentService.php             # Payment orchestration
+    └── PaymobPaymentService.php       # Paymob implementation
+```
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
