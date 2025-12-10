@@ -24,7 +24,7 @@ A Laravel-based payment processing system integrated with Paymob payment gateway
 ### 1. Clone the Repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/elshafey99/Abudiyab-Backend-Task.git
 cd abudiyab-backend-task
 ```
 
