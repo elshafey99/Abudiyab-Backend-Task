@@ -7,10 +7,11 @@ use App\Http\Requests\Api\InitiatePaymentRequest;
 use App\Http\Resources\PaymentResource;
 use App\Helpers\ApiResponse;
 use App\Models\Order;
+use App\Services\Api\PaymentService;
 class PaymentController extends Controller
 {
     public function __construct(
-        private \App\Services\Api\PaymentService $paymentService
+        private PaymentService $paymentService
     ) {}
 
     public function initiate(InitiatePaymentRequest $request)
@@ -18,7 +19,7 @@ class PaymentController extends Controller
         try {
             $order =Order::findOrFail($request->order_id);
 
-            // Optional billing data (can be extended based on requirements)
+            // Optional billing data
             $billingData = [
                 'first_name' => $request->input('first_name', 'Customer'),
                 'last_name' => $request->input('last_name', 'Name'),

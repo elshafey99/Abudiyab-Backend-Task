@@ -14,4 +14,3 @@ Route::post('/orders', [OrderController::class, 'store']);
 
 // Payment Routes
 Route::post('/payments/initiate', [PaymentController::class, 'initiate']);
-
