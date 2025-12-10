@@ -1,0 +1,227 @@
+{
+	"info": {
+		"_postman_id": "ed0b2ae8-1a62-4eb2-ac35-4c0a35bfd360",
+		"name": "Paymob Payment API 11",
+		"description": "API collection for Paymob payment gateway integration with Laravel",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "42476065",
+		"_collection_link": "https://beshola.postman.co/workspace/61304b18-b562-44e5-8915-94689c3dbeca/collection/42476065-ed0b2ae8-1a62-4eb2-ac35-4c0a35bfd360?action=share&source=collection_link&creator=42476065"
+	},
+	"item": [
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "Create Order",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"amount\": 100.50,\n  \"currency\": \"EGP\",\n  \"customer_email\": \"customer@example.com\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/orders",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"orders"
+							]
+						},
+						"description": "Create a new order for payment processing"
+					},
+					"response": [
+						{
+							"name": "Create Order",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"amount\": 100.50,\n  \"currency\": \"EGP\",\n  \"customer_email\": \"customer@example.com\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/orders",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"orders"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.2.12"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 10 Dec 2025 18:02:20 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"status\": 201,\n    \"message\": \"Order created successfully\",\n    \"data\": {\n        \"id\": 1,\n        \"amount\": \"100.50\",\n        \"currency\": \"EGP\",\n        \"customer_email\": \"customer@example.com\",\n        \"status\": \"pending\",\n        \"created_at\": \"2025-12-10 20:02:19\"\n    }\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Payments",
+			"item": [
+				{
+					"name": "Initiate Payment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"order_id\": 1,\n  \"first_name\": \"Mohamed\",\n  \"last_name\": \"Elshafey\",\n  \"phone_number\": \"01025329322\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/payments/initiate",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"payments",
+								"initiate"
+							]
+						},
+						"description": "Initiate payment for an order (returns payment iframe URL)"
+					},
+					"response": [
+						{
+							"name": "Initiate Payment",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"order_id\": 1,\n  \"first_name\": \"Mohamed\",\n  \"last_name\": \"Elshafey\",\n  \"phone_number\": \"01025329322\"\n}"
+								},
+								"url": {
+									"raw": "{{base_url}}/api/payments/initiate",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"api",
+										"payments",
+										"initiate"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "",
+							"header": [
+								{
+									"key": "Host",
+									"value": "localhost:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.2.12"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Wed, 10 Dec 2025 18:03:15 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"success\": true,\n    \"status\": 200,\n    \"message\": \"Payment initiated successfully\",\n    \"data\": {\n        \"id\": 1,\n        \"order\": {\n            \"id\": 1,\n            \"amount\": \"100.50\",\n            \"currency\": \"EGP\",\n            \"customer_email\": \"customer@example.com\"\n        },\n        \"payment_gateway\": \"paymob\",\n        \"transaction_id\": null,\n        \"amount\": \"100.50\",\n        \"status\": \"pending\",\n        \"payment_url\": \"https://accept.paymob.com/api/acceptance/iframes/843722?payment_token=ZXlKaGJHY2lPaUpJVXpVeE1pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SjFjMlZ5WDJsa0lqb3hOemcxTmpVeUxDSmhiVzkxYm5SZlkyVnVkSE1pT2pFd01EVXdMQ0pqZFhKeVpXNWplU0k2SWtWSFVDSXNJbWx1ZEdWbmNtRjBhVzl1WDJsa0lqbzBOVFkzTlRJNUxDSnZjbVJsY2w5cFpDSTZORE15TnpVM056QTVMQ0ppYVd4c2FXNW5YMlJoZEdFaU9uc2labWx5YzNSZmJtRnRaU0k2SWsxdmFHRnRaV1FpTENKc1lYTjBYMjVoYldVaU9pSkZiSE5vWVdabGVTSXNJbk4wY21WbGRDSTZJazVCSWl3aVluVnBiR1JwYm1jaU9pSk9RU0lzSW1ac2IyOXlJam9pVGtFaUxDSmhjR0Z5ZEcxbGJuUWlPaUpPUVNJc0ltTnBkSGtpT2lKT1FTSXNJbk4wWVhSbElqb2lUa0VpTENKamIzVnVkSEo1SWpvaVRrRWlMQ0psYldGcGJDSTZJbU4xYzNSdmJXVnlRR1Y0WVcxd2JHVXVZMjl0SWl3aWNHaHZibVZmYm5WdFltVnlJam9pTURFd01qVXpNamt6TWpJaUxDSndiM04wWVd4ZlkyOWtaU0k2SWs1Qklpd2laWGgwY21GZlpHVnpZM0pwY0hScGIyNGlPaUpPUVNKOUxDSnNiMk5yWDI5eVpHVnlYM2RvWlc1ZmNHRnBaQ0k2Wm1Gc2MyVXNJbVY0ZEhKaElqcDdmU3dpYzJsdVoyeGxYM0JoZVcxbGJuUmZZWFIwWlcxd2RDSTZabUZzYzJVc0ltVjRjQ0k2TVRjMk5UTTVNek01Tml3aWNHMXJYMmx3SWpvaU1UazNMak01TGpFeU55NHhORGdpZlEuY0VvdXpHdVdYZ3lBemV2NnpSUjVjYS04SkNrM2FnS0ZkeUgwa2dpaEpwTFVjdFJJOGlMVkNmMXpRT3B5aG9BWV9rSGpBZTVzSXNISFZXMXZZRmhfc1E=\",\n        \"created_at\": \"2025-12-10 20:03:15\"\n    }\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000",
+			"type": "string"
+		}
+	]
+}
